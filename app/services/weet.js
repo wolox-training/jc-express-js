@@ -1,5 +1,7 @@
-const { default: Axios } = require('axios');
+const axios = require('axios');
 const logger = require('../logger');
+const config = require('../../config');
+const { externalApiError } = require('../errors');
 
 /**
  * @description call the geek-jokes api
@@ -7,17 +9,12 @@ const logger = require('../logger');
  * @property {string} joke
  * @returns {GeekJoke} return a joke
  */
-async function getWeet() {
+exports.getWeet = async () => {
   try {
-    const apiUrl = 'https://geek-jokes.sameerkumar.website/api?format=json';
-    const response = await Axios.get(apiUrl);
-    return response.data;
+    const apiUrl = config.common.external_service.geek_joke_url;
+    return (await axios.get(apiUrl)).data;
   } catch (error) {
     logger.error(error);
-    throw new Error(error);
+    throw externalApiError(error.message);
   }
-}
-
-module.exports = {
-  getWeet
 };
