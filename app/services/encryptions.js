@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const { SALT_ROUNDS } = require('../helpers');
 const logger = require('../logger');
+const errors = require('../errors');
 
 exports.hashPassword = user =>
   bcrypt
@@ -8,12 +9,12 @@ exports.hashPassword = user =>
     .then(password => ({ ...user, password }))
     .catch(error => {
       logger.error(error.message);
-      throw new Error('failed hash password');
+      throw errors.encryptionError(error.message);
     });
 
 exports.comparePassword = ({ user, password }) => {
   bcrypt.compare(password, user.password).catch(error => {
     logger.error(error.message);
-    throw new Error('failed compare password');
+    throw errors.encryptionError(error.message);
   });
 };

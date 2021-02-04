@@ -1,4 +1,4 @@
-const StatusCodes = require('http-status-codes');
+const httpStatusCodes = require('http-status-codes');
 const { hashPassword } = require('../services/encryptions');
 
 const logger = require('../logger');
@@ -11,7 +11,7 @@ exports.signUp = (req, res, next) => {
     .then(userService.createUser)
     .then(user => {
       logger.info(`The user ${user.firstName} has been created`);
-      res.status(StatusCodes.CREATED).send({ user_id: user.id });
+      res.status(httpStatusCodes.CREATED).send({ user_id: user.id });
     })
     .catch(error => {
       logger.error(error.message);

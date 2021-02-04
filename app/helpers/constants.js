@@ -1,7 +1,7 @@
 // Regex
 exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gim;
 exports.WOLOX_DOMAIN = 'wolox.co';
-exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/gim;
+exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/gi;
 
 // Messages
 exports.MISSING = 'This field is required';
