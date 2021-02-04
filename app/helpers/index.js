@@ -1,5 +1,5 @@
-const CONSTANTS = require('./constants');
+const constants = require('./constants');
 
 module.exports = {
-  ...CONSTANTS
+  ...constants
 };
