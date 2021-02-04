@@ -12,7 +12,7 @@ exports.getValidationErrors = (req, res, next) => {
   }
 
   if (errors.length) {
-    const message = errors.map(e => e.msg).join('. ');
+    const message = errors.map(e => `${e.param}: ${e.msg}`).join('. ');
     return next(validationError(message));
   }
 

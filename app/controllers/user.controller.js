@@ -1,9 +1,9 @@
 const StatusCodes = require('http-status-codes');
-const { hashPassword } = require('../services/encryption');
+const { hashPassword } = require('../services/encryptions');
 
 const logger = require('../logger');
 
-const userService = require('../services/user');
+const userService = require('../services/users');
 
 exports.signUp = (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;

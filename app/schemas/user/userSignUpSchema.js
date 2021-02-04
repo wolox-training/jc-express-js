@@ -1,4 +1,12 @@
-const { MISSING, INVALID_CONTENT, WOLOX_DOMAIN, ALPHANUMERIC } = require('../../helpers');
+const {
+  MISSING,
+  WOLOX_DOMAIN,
+  ALPHANUMERIC,
+  INVALID_EMAIN_DOMAIN,
+  INVALID_PASSWORD_LENGTH,
+  INVALID_ALPHANUMERIC,
+  INVALID_EMAIL
+} = require('../../helpers');
 
 exports.userSignUpSchema = {
   firstName: {
@@ -22,11 +30,11 @@ exports.userSignUpSchema = {
       negated: true
     },
     isEmail: {
-      errorMessage: INVALID_CONTENT
+      errorMessage: INVALID_EMAIL
     },
     matches: {
       options: [WOLOX_DOMAIN],
-      errorMessage: INVALID_CONTENT
+      errorMessage: INVALID_EMAIN_DOMAIN
     }
   },
   password: {
@@ -36,13 +44,14 @@ exports.userSignUpSchema = {
       negated: true
     },
     matches: {
-      options: [ALPHANUMERIC]
+      options: [ALPHANUMERIC],
+      errorMessage: INVALID_ALPHANUMERIC
     },
     isLength: {
       options: {
         min: 8
       },
-      errorMessage: 'must be a minimum of 8 characters'
+      errorMessage: INVALID_PASSWORD_LENGTH
     }
   }
 };
