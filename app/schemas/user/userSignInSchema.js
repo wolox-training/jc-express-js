@@ -6,28 +6,13 @@ const {
   invalidPasswordLengthMessage,
   invalidAlphanumericMessage,
   invalidEmailMessage
-} = require('../../helpers');
+} = require('../../helpers/constants');
 
-exports.userSignUpSchema = {
-  firstName: {
-    in: ['body'],
-    isEmpty: {
-      errorMessage: missingMessage,
-      negated: true
-    }
-  },
-  lastName: {
-    in: ['body'],
-    isEmpty: {
-      errorMessage: missingMessage,
-      negated: true
-    }
-  },
+exports.userSignInSchema = {
   email: {
     in: ['body'],
-    isEmpty: {
-      errorMessage: missingMessage,
-      negated: true
+    exists: {
+      errorMessage: missingMessage
     },
     isEmail: {
       errorMessage: invalidEmailMessage
@@ -39,9 +24,8 @@ exports.userSignUpSchema = {
   },
   password: {
     in: ['body'],
-    isEmpty: {
-      errorMessage: missingMessage,
-      negated: true
+    exists: {
+      errorMessage: missingMessage
     },
     matches: {
       options: [ALPHANUMERIC],

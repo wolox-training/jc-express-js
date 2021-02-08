@@ -1,7 +1,8 @@
 // Regex
-exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gim;
+exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
+exports.WOLOX_DOMAIN_VALIDATION = /^.*?(wolox.co)$/i;
+exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/i;
 exports.WOLOX_DOMAIN = 'wolox.co';
-exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/gi;
 
 // Messages
 exports.missingMessage = 'This field is required';
@@ -14,6 +15,8 @@ exports.invalidAlphanumericMessage = 'This field must be alphanumeric';
 // Error Messsages
 exports.uniqueErrorMessage = 'The resource you are trying to create already exists';
 exports.validationErrorMessage = 'There has been a validation error';
+exports.notFoundErrorMessage = 'The resource was not found';
+exports.authenticationErrorMessage = 'Invalid credentials';
 
 // Const
 exports.SALT_ROUNDS = 10;
