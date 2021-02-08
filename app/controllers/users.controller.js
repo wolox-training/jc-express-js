@@ -1,5 +1,5 @@
 const httpStatusCodes = require('http-status-codes');
-const { hashPassword } = require('../services/encryptions');
+const { hashPassword } = require('../helpers/encryptions');
 
 const logger = require('../logger');
 
