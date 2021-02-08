@@ -10,6 +10,7 @@ const statusCodes = {
   [errors.EXTERNAL_API_ERROR]: httpStatusCodes.BAD_GATEWAY,
   [errors.VALIDATION_ERROR]: httpStatusCodes.UNPROCESSABLE_ENTITY,
   [errors.MISSING_DATA_ERROR]: httpStatusCodes.BAD_REQUEST,
+  [errors.UNIQUE_ENTITY_ERROR]: httpStatusCodes.UNPROCESSABLE_ENTITY,
 
   // 5.x.x
   [errors.DEFAULT_ERROR]: httpStatusCodes.INTERNAL_SERVER_ERROR,

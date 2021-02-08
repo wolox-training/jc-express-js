@@ -1,0 +1,23 @@
+const chance = require('chance')();
+const { WOLOX_DOMAIN } = require('../../app/helpers');
+
+exports.signupGoodCase = {
+  firstName: chance.first(),
+  lastName: chance.last(),
+  email: chance.email({ domain: WOLOX_DOMAIN }),
+  password: chance.word({ length: 8 }) + chance.integer({ min: 0, max: 9 })
+};
+
+exports.passwordWrongLen = {
+  firstName: chance.first(),
+  lastName: chance.last(),
+  email: chance.email({ domain: WOLOX_DOMAIN }),
+  password: chance.word({ length: 5 }) + chance.integer({ min: 0, max: 9 })
+};
+
+exports.passwordWrongAlphanumeric = {
+  firstName: chance.first(),
+  lastName: chance.last(),
+  email: chance.email({ domain: WOLOX_DOMAIN }),
+  password: chance.word({ length: 8 }) + chance.integer(`${{ min: 0, max: 9 }}_-`)
+};
