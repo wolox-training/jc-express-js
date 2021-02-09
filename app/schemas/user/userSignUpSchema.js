@@ -1,57 +1,57 @@
 const {
-  MISSING,
+  missingMessage,
   WOLOX_DOMAIN_VALIDATION,
   ALPHANUMERIC,
-  INVALID_EMAIN_DOMAIN,
-  INVALID_PASSWORD_LENGTH,
-  INVALID_ALPHANUMERIC,
-  INVALID_EMAIL
+  invalidEmailDomainMessage,
+  invalidPasswordLengthMessage,
+  invalidAlphanumericMessage,
+  invalidEmailMessage
 } = require('../../constant');
 
 exports.userSignUpSchema = {
   firstName: {
     in: ['body'],
     isEmpty: {
-      errorMessage: MISSING,
+      errorMessage: missingMessage,
       negated: true
     }
   },
   lastName: {
     in: ['body'],
     isEmpty: {
-      errorMessage: MISSING,
+      errorMessage: missingMessage,
       negated: true
     }
   },
   email: {
     in: ['body'],
     isEmpty: {
-      errorMessage: MISSING,
+      errorMessage: missingMessage,
       negated: true
     },
     isEmail: {
-      errorMessage: INVALID_EMAIL
+      errorMessage: invalidEmailMessage
     },
     matches: {
       options: [WOLOX_DOMAIN_VALIDATION],
-      errorMessage: INVALID_EMAIN_DOMAIN
+      errorMessage: invalidEmailDomainMessage
     }
   },
   password: {
     in: ['body'],
     isEmpty: {
-      errorMessage: MISSING,
+      errorMessage: missingMessage,
       negated: true
     },
     matches: {
       options: [ALPHANUMERIC],
-      errorMessage: INVALID_ALPHANUMERIC
+      errorMessage: invalidAlphanumericMessage
     },
     isLength: {
       options: {
         min: 8
       },
-      errorMessage: INVALID_PASSWORD_LENGTH
+      errorMessage: invalidPasswordLengthMessage
     }
   }
 };

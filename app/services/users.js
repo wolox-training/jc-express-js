@@ -1,9 +1,4 @@
 const { User } = require('../models');
-const logger = require('../logger');
-const { databaseError } = require('../errors');
+const { errorHandler } = require('../helpers/dbErrorsHandler');
 
-exports.createUser = user =>
-  User.create(user).catch(error => {
-    logger.error(error.message);
-    throw databaseError(error.message);
-  });
+exports.createUser = user => User.create(user).catch(errorHandler('Unable to create user'));
