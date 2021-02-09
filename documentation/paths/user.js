@@ -37,7 +37,7 @@ module.exports = {
                 $ref: '#/components/schemas/Error'
               },
               example: {
-                message: 'This field is required password',
+                message: 'Some params do not have a valid value',
                 internal_code: 'missing_data_error'
               }
             }
@@ -51,8 +51,7 @@ module.exports = {
                 $ref: '#/components/schemas/Error'
               },
               example: {
-                message:
-                  'email: This field must be a valid email. email: The email must include the wolox.co domain. password: This field must be alphanumeric',
+                message: 'Some params do not have a valid value',
                 internal_code: 'validation_error'
               }
             }
