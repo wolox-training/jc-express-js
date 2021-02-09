@@ -9,6 +9,9 @@ exports.databaseError = message => internalError(message, exports.DATABASE_ERROR
 exports.DEFAULT_ERROR = 'default_error';
 exports.defaultError = message => internalError(message, exports.DEFAULT_ERROR);
 
+exports.UNIQUE_ENTITY_ERROR = 'unique_entity_error';
+exports.uniqueEntityError = message => internalError(message, exports.UNIQUE_ENTITY_ERROR);
+
 exports.EXTERNAL_API_ERROR = 'external_api_error';
 exports.externalApiError = message => internalError(message, exports.EXTERNAL_API_ERROR);
 
