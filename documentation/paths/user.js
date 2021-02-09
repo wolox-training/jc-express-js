@@ -38,7 +38,7 @@ module.exports = {
               },
               example: {
                 message: 'Some params do not have a valid value',
-                internal_code: 'missing_data_error'
+                internal_code: 'validation_error'
               }
             }
           }
@@ -52,7 +52,7 @@ module.exports = {
               },
               example: {
                 message: 'Some params do not have a valid value',
-                internal_code: 'validation_error'
+                internal_code: 'params_validation_error'
               }
             }
           }
