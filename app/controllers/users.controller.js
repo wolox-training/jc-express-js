@@ -14,7 +14,6 @@ exports.signUp = (req, res, next) => {
       res.status(httpStatusCodes.CREATED).send({ user_id: user.id });
     })
     .catch(error => {
-      logger.error(error.message);
       next(error);
     });
 };

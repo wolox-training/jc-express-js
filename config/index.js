@@ -47,6 +47,9 @@ const config = {
     },
     external_service: {
       geek_joke_url: process.env.GEEK_JOKE_URL
+    },
+    encryption: {
+      salt_rounds: process.env.SALT_ROUNDS || 10
     }
   }
 };

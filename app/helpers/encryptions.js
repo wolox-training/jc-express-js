@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
-const { SALT_ROUNDS } = require('./constants');
+const config = require('../../config');
 const logger = require('../logger');
 const errors = require('../errors');
 
 exports.hashPassword = user =>
   bcrypt
-    .hash(user.password, SALT_ROUNDS)
+    .hash(user.password, config.common.encryption.salt_rounds)
     .then(password => ({ ...user, password }))
     .catch(error => {
       logger.error(error.message);

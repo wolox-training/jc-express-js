@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { missingDataError, validationError } = require('../errors');
-const { MISSING } = require('../helpers');
+const { MISSING } = require('../constant');
 
 exports.getValidationErrors = (req, res, next) => {
   const { errors } = validationResult(req);

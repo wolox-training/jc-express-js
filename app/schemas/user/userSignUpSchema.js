@@ -1,12 +1,12 @@
 const {
   MISSING,
-  WOLOX_DOMAIN,
+  WOLOX_DOMAIN_VALIDATION,
   ALPHANUMERIC,
   INVALID_EMAIN_DOMAIN,
   INVALID_PASSWORD_LENGTH,
   INVALID_ALPHANUMERIC,
   INVALID_EMAIL
-} = require('../../helpers');
+} = require('../../constant');
 
 exports.userSignUpSchema = {
   firstName: {
@@ -33,7 +33,7 @@ exports.userSignUpSchema = {
       errorMessage: INVALID_EMAIL
     },
     matches: {
-      options: [WOLOX_DOMAIN],
+      options: [WOLOX_DOMAIN_VALIDATION],
       errorMessage: INVALID_EMAIN_DOMAIN
     }
   },
