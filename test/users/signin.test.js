@@ -23,7 +23,7 @@ describe('POST /users', () => {
         expect(res.statusCode).toBe(httpStatusCodes.OK);
         expect(res.body).toHaveProperty('user_id');
         expect(res.body).toHaveProperty('token');
-        expect(res.body).toHaveProperty('expireAt');
+        expect(res.body).toHaveProperty('expire_at');
 
         // find user created
         User.findOne({ where: { id: res.body.user_id } }).then(user => {

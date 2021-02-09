@@ -33,7 +33,7 @@ exports.signIn = async (req, res, next) => {
     return res.status(httpStatusCodes.OK).send({
       user_id: user.id,
       token,
-      expireAt: expirationDate.toString()
+      expire_at: expirationDate.toString()
     });
   } catch (error) {
     if (error.internalCode === NOT_FOUND_ERROR) {
