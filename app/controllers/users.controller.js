@@ -37,7 +37,6 @@ exports.signIn = async (req, res, next) => {
     });
   } catch (error) {
     if (error.internalCode === NOT_FOUND_ERROR) {
-      logger.error(error);
       return next(authenticationError(authenticationErrorMessage));
     }
     return next(error);

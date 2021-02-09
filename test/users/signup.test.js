@@ -17,24 +17,25 @@ const createUser = user => request.post('/users').send(user);
 
 describe('POST /users', () => {
   it('should response status 201 CREATED when data pass validations', () => {
-    createUser(signupGoodCase).then(async res => {
-      // check status
+    createUser(signupGoodCase).then(res => {
       expect(res.statusCode).toBe(httpStatusCodes.CREATED);
 
-      // find user created
-      const user = await User.findOne({ where: { email: signupGoodCase.email } });
-
-      const isValidPassword = await encryption.comparePassword({ user, password: signupGoodCase.password });
-      expect(isValidPassword).toBe(true);
-      expect(user.firstName).toBe(signupGoodCase.firstName);
-      expect(user.lastName).toBe(signupGoodCase.lastName);
-      expect(user.email).toBe(signupGoodCase.email);
+      User.findOne({ where: { email: signupGoodCase.email } })
+        .then(user => {
+          const isValidPassword = encryption.comparePassword({ user, password: signupGoodCase.password });
+          return Promise.all([user, isValidPassword]);
+        })
+        .then(([user, isValidPassword]) => {
+          expect(isValidPassword).toBe(true);
+          expect(user.firstName).toBe(signupGoodCase.firstName);
+          expect(user.lastName).toBe(signupGoodCase.lastName);
+          expect(user.email).toBe(signupGoodCase.email);
+        });
     });
   });
 
   it('should response status 422 UNPROCESSABLE_ENTITY when password is less than 8 characters', () => {
     createUser(passwordWrongLen).then(res => {
-      // check status
       expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY);
 
       expect(res.body.internal_code).toBe(errors.VALIDATION_ERROR);
@@ -44,7 +45,6 @@ describe('POST /users', () => {
 
   it('should response status 422 UNPROCESSABLE_ENTITY when password is not alphanumeric', () => {
     createUser(passwordWrongAlphanumeric).then(res => {
-      // check status
       expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY);
 
       expect(res.body.internal_code).toBe(errors.VALIDATION_ERROR);
@@ -52,23 +52,24 @@ describe('POST /users', () => {
     });
   });
 
-  it('should response status 400 BAD_REQUEST when missing fields', () => {
+  it('should response status 400 BAD_REQUEST when missing fields', done => {
     createUser({}).then(res => {
-      // check status
       expect(res.statusCode).toBe(httpStatusCodes.BAD_REQUEST);
 
       expect(res.body.internal_code).toBe(errors.MISSING_DATA_ERROR);
       expect(res.body.message).toContain(missingMessage);
+      done();
     });
   });
 
   it('should response status 422 UNPROCESSABLE_ENTITY when email already exist', () => {
-    createUser(signupGoodCase).then(res => {
-      // check status
-      expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY);
+    createUser(signupGoodCase)
+      .then(() => request.post('/users').send(signupGoodCase))
+      .then(res => {
+        expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY);
 
-      expect(res.body.internal_code).toBe(errors.UNIQUE_ENTITY_ERROR);
-      expect(res.body.message).toContain(uniqueErrorMessage);
-    });
+        expect(res.body.internal_code).toBe(errors.UNIQUE_ENTITY_ERROR);
+        expect(res.body.message).toContain(uniqueErrorMessage);
+      });
   });
 });

@@ -15,3 +15,4 @@ exports.invalidAlphanumericMessage = 'This field must be alphanumeric';
 // Error Messsages
 exports.uniqueErrorMessage = 'The resource you are trying to create already exists';
 exports.validationErrorMessage = 'There has been a validation error';
+exports.authenticationErrorMessage = 'Wrong credentials';
