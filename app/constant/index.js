@@ -1,8 +1,8 @@
 // Regex
-exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gim;
+exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
 exports.WOLOX_DOMAIN_VALIDATION = /^.*?(wolox.)\w.*$/i;
 exports.WOLOX_DOMAIN = 'wolox.';
-exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/gi;
+exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/i;
 
 // Messages
 exports.missingMessage = 'This field is required';
