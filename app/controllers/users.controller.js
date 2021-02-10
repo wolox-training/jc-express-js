@@ -3,8 +3,12 @@ const { hashPassword, comparePassword } = require('../helpers/encryptions');
 const logger = require('../logger');
 const { authenticationError, NOT_FOUND_ERROR } = require('../errors');
 const { authenticationErrorMessage } = require('../constant');
+const { paginatedResponse, extractFields } = require('../serializers');
+const { userSignUpSchema } = require('../schemas/user/userSignUpSchema');
 
 const userService = require('../services/users');
+
+const getUserFields = extractFields({ ...userSignUpSchema }, 'password');
 
 exports.signUp = (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -41,4 +45,35 @@ exports.signIn = async (req, res, next) => {
     }
     return next(error);
   }
+};
+
+exports.getUsers = (req, res, next) => {
+  const { id } = req.params;
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = req.query.pageSize || 10;
+  const offset = (page - 1) * pageSize;
+  const limit = parseInt(pageSize);
+
+  const prepareResponse = paginatedResponse({
+    resource: 'users',
+    offset,
+    limit,
+    page,
+    getFieldsFn: getUserFields
+  });
+
+  if (id) {
+    return userService
+      .getUserById(id)
+      .then(response => res.send(getUserFields(response)))
+      .catch(next);
+  }
+
+  return userService
+    .getAllUsers(offset, limit)
+    .then(prepareResponse)
+    .then(response => {
+      res.status(httpStatusCodes.OK).send(response);
+    })
+    .catch(next);
 };

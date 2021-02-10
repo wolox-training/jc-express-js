@@ -1,3 +1,5 @@
+const { extractField } = require('../serializers');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
@@ -33,9 +35,28 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: {
         type: DataTypes.DATE,
         field: 'updated_at'
+      },
+      sessionInvalidate: {
+        type: DataTypes.DATE,
+        field: 'session_invalidate',
+        options: {
+          timezone: '+00:00'
+        }
       }
     },
     { underscored: true }
   );
+
+  User.getAll = ({ offset, limit }) =>
+    User.findAndCountAll({
+      offset,
+      limit
+    }).then(result => ({
+      count: result.count,
+      rows: extractField('dataValues')(result.rows)
+    }));
+
+  User.invalidateSessions = userId => User.update({ sessionInvalid: new Date() }, { where: { id: userId } });
+
   return User;
 };

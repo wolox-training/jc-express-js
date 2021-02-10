@@ -15,7 +15,7 @@ const request = supertest(app);
 const createUser = user => request.post('/users').send(user);
 const singInUser = user => request.post('/users/sessions').send(user);
 
-describe('POST /users', () => {
+describe('POST /users/sessions', () => {
   it('should response status 200 OK when is authenticated successfully', done => {
     createUser(signupGoodCase)
       .then(() => singInUser({ email: signupGoodCase.email, password: signupGoodCase.password }))

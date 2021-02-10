@@ -30,3 +30,16 @@ exports.createSessionToken = user => {
     expirationDate
   };
 };
+
+exports.getAllUsers = (offset, limit) =>
+  User.getAll({ offset, limit }).catch(errorHandler('Unable to get users'));
+
+exports.getUserById = id =>
+  User.findOne({ where: { id } })
+    .then(user => {
+      if (!user) {
+        throw notFoundError(notFoundErrorMessage);
+      }
+      return user;
+    })
+    .catch(errorHandler('Unable to find user'));
