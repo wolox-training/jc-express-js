@@ -8,7 +8,7 @@ const { userSignUpSchema } = require('../schemas/user/userSignUpSchema');
 
 const userService = require('../services/users');
 
-const getUserFields = extractFields({ ...userSignUpSchema }, 'password');
+const getUserFields = extractFields({ ...userSignUpSchema, role: 'role' }, 'password');
 
 exports.signUp = (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -75,5 +75,24 @@ exports.getUsers = (req, res, next) => {
     .then(response => {
       res.status(httpStatusCodes.OK).send(response);
     })
+    .catch(next);
+};
+
+exports.createAdmin = (req, res, next) => {
+  const { firstName, lastName, email, password } = req.body;
+  const userCreatedResponse = () => {
+    logger.info(`A user '${firstName} ${lastName}' has been created as administrator`);
+    res.status(httpStatusCodes.CREATED).end();
+  };
+  const userUpdatedResponse = () => {
+    logger.info(`A user '${firstName} ${lastName}' has been updated`);
+    res.status(httpStatusCodes.NO_CONTENT).end();
+  };
+
+  const respond = created => (created ? userCreatedResponse() : userUpdatedResponse());
+
+  return hashPassword({ firstName, lastName, email, password })
+    .then(userService.createAdminUser)
+    .then(respond)
     .catch(next);
 };

@@ -2,6 +2,7 @@ const { factory } = require('factory-girl');
 const chance = require('chance')();
 const { User } = require('../../app/models');
 const { WOLOX_DOMAIN } = require('../../app/constant');
+const ROLES = require('../../app/constant/roles');
 const { encryption } = require('../../app/helpers');
 const { extractField } = require('../../app/serializers');
 const usersService = require('../../app/services/users');
@@ -17,6 +18,7 @@ exports.runFactory = factoryName => count =>
   factory.createMany(factoryName, count).then(extractField('dataValues'));
 
 exports.authorizationFactory = {
-  regular: id => ({ authorization: usersService.createSessionToken({ id }).token }),
+  regular: id => ({ authorization: usersService.createSessionToken({ id, role: ROLES.REGULAR_ROLE }).token }),
+  admin: id => ({ authorization: usersService.createSessionToken({ id, role: ROLES.ADMIN_ROLE }).token }),
   invalid: { authorization: 'invalid' }
 };

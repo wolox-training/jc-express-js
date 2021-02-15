@@ -13,6 +13,7 @@ const statusCodes = {
   [errors.UNIQUE_ENTITY_ERROR]: httpStatusCodes.UNPROCESSABLE_ENTITY,
   [errors.NOT_FOUND_ERROR]: httpStatusCodes.NOT_FOUND,
   [errors.AUTHENTICATION_ERROR]: httpStatusCodes.BAD_REQUEST,
+  [errors.FORBIDDEN_ERROR]: httpStatusCodes.FORBIDDEN,
 
   // 5.x.x
   [errors.DEFAULT_ERROR]: httpStatusCodes.INTERNAL_SERVER_ERROR,

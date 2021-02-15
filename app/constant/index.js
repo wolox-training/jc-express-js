@@ -1,8 +1,10 @@
+// const ROLES = require('./roles');
+
 // Regex
 exports.EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
 exports.WOLOX_DOMAIN_VALIDATION = /^.*?(wolox.)\w.*$/i;
 exports.WOLOX_DOMAIN = 'wolox.';
-exports.ALPHANUMERIC = /^[a-zA-Z0-9]*$/i;
+exports.ALPHANUMERIC = /^[a-zA-Z0-9]+$/i;
 
 // Messages
 exports.missingMessage = 'This field is required';
@@ -16,3 +18,7 @@ exports.invalidAlphanumericMessage = 'This field must be alphanumeric';
 exports.uniqueErrorMessage = 'The resource you are trying to create already exists';
 exports.validationErrorMessage = 'There has been a validation error';
 exports.authenticationErrorMessage = 'Wrong credentials';
+
+// module.exports = {
+//   ROLES
+// };

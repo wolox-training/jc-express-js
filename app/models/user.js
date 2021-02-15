@@ -1,4 +1,5 @@
 const { extractField } = require('../serializers');
+const ROLES = require('../constant/roles');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -42,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         options: {
           timezone: '+00:00'
         }
+      },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: ROLES.REGULAR_ROLE
       }
     },
     { underscored: true }
@@ -57,6 +62,8 @@ module.exports = (sequelize, DataTypes) => {
     }));
 
   User.invalidateSessions = userId => User.update({ sessionInvalid: new Date() }, { where: { id: userId } });
+
+  User.createAdmin = user => User.upsert({ ...user, role: ROLES.ADMIN_ROLE });
 
   return User;
 };
