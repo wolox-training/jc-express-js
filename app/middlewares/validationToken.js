@@ -35,7 +35,7 @@ exports.validateToken = (req, res, next) => {
   };
 
   const setLocalData = token => {
-    req.locals = { ...req.locals, role: token.role, user_id: token.userId };
+    req.locals = { ...req.locals, role: token.role, user_id: token.user_id };
     next();
   };
 

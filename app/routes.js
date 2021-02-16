@@ -4,6 +4,7 @@ const { getValidationErrors } = require('./middlewares/getValidationErrors');
 const { validatePermissions } = require('./middlewares/validatePermissions');
 const { userSignInSchema, userSignUpSchema } = require('./schemas/user');
 const usersController = require('./controllers/users.controller');
+const weetsController = require('./controllers/weets.controller');
 const { validateToken } = require('./middlewares/validationToken');
 const ROLES = require('./constant/roles');
 
@@ -23,4 +24,6 @@ exports.init = app => {
     ],
     usersController.createAdmin
   );
+
+  app.post('/weets', validateToken, weetsController.createWeet);
 };
