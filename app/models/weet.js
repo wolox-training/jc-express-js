@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
 
-  Weet.associate = models => Weet.belogsTo(models.User, { foreigKey: 'user_id', as: 'user' });
+  Weet.associate = models => Weet.belongsTo(models.User, { foreigKey: 'user_id', as: 'user' });
 
   return Weet;
 };
