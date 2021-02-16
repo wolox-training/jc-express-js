@@ -52,6 +52,8 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
 
+  User.associate = models => User.hasMany(models.Weet, { as: 'weets' });
+
   User.getAll = ({ offset, limit }) =>
     User.findAndCountAll({
       offset,
