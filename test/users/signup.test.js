@@ -1,12 +1,12 @@
 const supertest = require('supertest');
 const httpStatusCodes = require('http-status-codes');
 const {
-  encryption,
   uniqueErrorMessage,
   invalidPasswordLengthMessage,
   invalidAlphanumericMessage,
   missingMessage
 } = require('../../app/constant');
+const encryption = require('../../app/helpers/encryptions');
 const app = require('../../app');
 const { signupGoodCase, passwordWrongLen, passwordWrongAlphanumeric } = require('../mocks/users.mock');
 const { User } = require('../../app/models');
@@ -21,10 +21,9 @@ describe('POST /users', () => {
       expect(res.statusCode).toBe(httpStatusCodes.CREATED);
 
       User.findOne({ where: { email: signupGoodCase.email } })
-        .then(user => {
-          const isValidPassword = encryption.comparePassword({ user, password: signupGoodCase.password });
-          return Promise.all([user, isValidPassword]);
-        })
+        .then(user =>
+          Promise.all([user, encryption.comparePassword({ user, password: signupGoodCase.password })])
+        )
         .then(([user, isValidPassword]) => {
           expect(isValidPassword).toBe(true);
           expect(user.firstName).toBe(signupGoodCase.firstName);
@@ -62,14 +61,16 @@ describe('POST /users', () => {
     });
   });
 
-  it('should response status 422 UNPROCESSABLE_ENTITY when email already exist', () => {
-    createUser(signupGoodCase)
-      .then(() => request.post('/users').send(signupGoodCase))
+  it('should response status 422 UNPROCESSABLE_ENTITY when email already exist', done => {
+    const user = signupGoodCase;
+    createUser(user)
+      .then(() => request.post('/users').send(user))
       .then(res => {
         expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY);
 
         expect(res.body.internal_code).toBe(errors.UNIQUE_ENTITY_ERROR);
         expect(res.body.message).toContain(uniqueErrorMessage);
+        done();
       });
   });
 });
