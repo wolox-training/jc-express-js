@@ -16,7 +16,9 @@ exports.signUp = (req, res, next) => {
     .then(userService.createUser)
     .then(user => {
       logger.info(`The user ${user.firstName} has been created`);
-      res.status(httpStatusCodes.CREATED).send({ user_id: user.id });
+      if (user.id) return res.status(httpStatusCodes.CREATED).send({ user_id: user.id });
+
+      return res.status(httpStatusCodes.BAD_REQUEST);
     })
     .catch(error => {
       next(error);
