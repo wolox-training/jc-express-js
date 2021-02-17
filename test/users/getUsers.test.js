@@ -58,7 +58,7 @@ describe('GET /users', () => {
       .get('/users')
       .set(userFactory.authorizationFactory.invalid)
       .then(response => {
-        expect(response.statusCode).toBe(httpStatusCodes.BAD_REQUEST);
+        expect(response.statusCode).toBe(httpStatusCodes.UNAUTHORIZED);
         expect(response.body.internal_code).toBe(AUTHENTICATION_ERROR);
         done();
       });

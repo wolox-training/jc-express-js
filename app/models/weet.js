@@ -1,3 +1,5 @@
+const { extractField } = require('../serializers');
+
 module.exports = (sequelize, DataTypes) => {
   const Weet = sequelize.define(
     'Weet',
@@ -29,6 +31,15 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Weet.associate = models => Weet.belongsTo(models.User, { foreigKey: 'user_id', as: 'user' });
+
+  Weet.getAll = ({ offset, limit }) =>
+    Weet.findAndCountAll({
+      offset,
+      limit
+    }).then(result => ({
+      count: result.count,
+      rows: extractField('dataValues')(result.rows)
+    }));
 
   return Weet;
 };

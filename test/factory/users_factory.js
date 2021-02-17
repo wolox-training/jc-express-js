@@ -1,6 +1,6 @@
 const { factory } = require('factory-girl');
 const chance = require('chance')();
-const { User } = require('../../app/models');
+const { User, Weet } = require('../../app/models');
 const { WOLOX_DOMAIN } = require('../../app/constant');
 const ROLES = require('../../app/constant/roles');
 const { encryption } = require('../../app/helpers');
@@ -12,6 +12,11 @@ factory.define('user', User, {
   lastName: factory.chance('last'),
   email: factory.seq('User.email', n => `mail-${n}@${WOLOX_DOMAIN}${chance.word({ length: 2 })}`),
   password: () => encryption.hashPassword({ password: 'wolox123' }).then(hashed => hashed.password)
+});
+
+factory.define('weet', Weet, {
+  userId: 1,
+  content: chance.word({ length: 139 })
 });
 
 exports.runFactory = factoryName => count =>

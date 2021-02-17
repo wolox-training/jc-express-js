@@ -26,3 +26,6 @@ exports.getWeet = async () => {
 
 exports.createWeet = (userId, content) =>
   Weet.create({ userId, content }).catch(errorHandler('Unable to create weet'));
+
+exports.getAllWeets = (offset, limit) =>
+  Weet.getAll({ offset, limit }).catch(errorHandler('Unable to get weets'));

@@ -26,4 +26,5 @@ exports.init = app => {
   );
 
   app.post('/weets', validateToken, weetsController.createWeet);
+  app.get('/weets', validateToken, weetsController.getWeets);
 };

@@ -68,7 +68,7 @@ describe('POST /users/sessions', () => {
     createUser(signupGoodCase)
       .then(() => singInUser({ email: `${signupGoodCase.email}.wrong`, password: signupGoodCase.password }))
       .then(res => {
-        expect(res.statusCode).toBe(httpStatusCodes.BAD_REQUEST);
+        expect(res.statusCode).toBe(httpStatusCodes.UNAUTHORIZED);
         expect(res.body.internal_code).toBe(AUTHENTICATION_ERROR);
         expect(res.body.message).toContain(authenticationErrorMessage);
         done();
