@@ -38,7 +38,8 @@ const config = {
     },
     session: {
       header_name: 'authorization',
-      secret: process.env.NODE_API_SESSION_SECRET
+      secret: process.env.NODE_API_SESSION_SECRET,
+      expirationTime: process.env.TOKEN_EXPIRATION_TIME || 1500000
     },
     headers: {
       apiDate: process.env.API_DATE || 'X-API-Date',
@@ -50,6 +51,9 @@ const config = {
     },
     encryption: {
       salt_rounds: process.env.SALT_ROUNDS || 10
+    },
+    token: {
+      secret: process.env.TOKEN_SECRET || 'supersecret'
     }
   }
 };
